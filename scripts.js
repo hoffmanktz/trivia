@@ -1,125 +1,95 @@
 $(document).ready(function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://opentdb.com/api.php?amount=1&category=9&difficulty=medium&type=multiple", false);
-	xhr.send();
+    var questionBank = [];
+    var newQuestion;
 
-console.log(xhr.status);
-console.log(xhr.statusText);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple");
+    xhr.onload = function() {
+        response = JSON.parse(xhr.responseText);
 
-var response = JSON.parse(xhr.responseText);
+        for (var result in response.results) {
+            var newQuestion = new TriviaQuestion(response.results[result]);
 
-var questionBank = [];
+            questionBank.push(newQuestion);
+        }
 
-var currentQuestion;
+        currentQuestion = questionBank[0];
+        printQuestion();
+    };
 
-var numberOfQuestions = 0;
+    xhr.send();
 
-var teamScore = 0;
+    var response;
 
-var TriviaQuestion = function(triviaObject) {
-	this.question = triviaObject.question;
-	this.answers = triviaObject.incorrect_answers;
-	this.correct = triviaObject.correct_answer;
+    var currentQuestion;
 
-	this.answers.push(this.correct);
+    var questionCount = 10;
 
-};
+    var teamScore = 0;
 
+    var quiz = $('#quiz');
 
+    function TriviaQuestion(triviaObject) {
+        this.question = triviaObject.question;
+        this.answers = triviaObject.incorrect_answers;
+        this.correct = triviaObject.correct_answer;
 
-for (var result in response.results) {
-	// console.log(response.results[result].category);
-	var newQuestion = new TriviaQuestion(response.results[result]);
+        this.answers.push(this.correct);
 
-	questionBank.push(newQuestion);
-
-}
-
-
-var printAnswers = function() {
-		console.log(newQuestion.answers);
-		
-		questionBank.forEach(function(question) {
-		var answer1 = $('<label><input type="radio" name="answer" value="' + newQuestion.answers[0] + '" /> ' + newQuestion.answers[0] + '</label><br>');
-	    $("#quiz").append(answer1);
-	    var answer2 = $('<label><input type="radio" name="answer" value="' + newQuestion.answers[1] + '" /> ' + newQuestion.answers[1] + '</label><br>');
-	    $("#quiz").append(answer2);
-	    var answer3 = $('<label><input type="radio" name="answer" value="' + newQuestion.answers[2] + '" /> ' + newQuestion.answers[2] + '</label><br>');
-	    $("#quiz").append(answer3);
-	    var answer4 = $('<label><input type="radio" name="answer" value="' + newQuestion.answers[3] + '" /> ' + newQuestion.answers[3] + '</label><br>');
-	    $("#quiz").append(answer4);
-			
-		});
-	};
-
-
-
-var printQuestion = function() {
-	questionBank.forEach(function(question) {
-		currentQuestion = question;
-		// console.log(question.question);
-		// console.log(question.correct);
-		$('#randomQuestion').find( "span:last" ).remove();
-		$('#randomQuestion').append( $( '<span>' + question.question + '</span>' ) );
-		// console.log(question.answers);
-		// $('#answer1').find( "label:last" ).remove();
-		// // How do you parse answers into its components?
-		// $('#answer1').html(question.answers[0]);
-		// $('#answer2').find( "label:last" ).remove();
-		// $('#answer2').html(question.answers[1]);
-		// $('#answer3').find( "label:last" ).remove();
-		// $('#answer3').html(question.answers[2]);
-		// $('#answer4').find( "label:last" ).remove();
-		// $('#answer4').html(question.answers[3]);
-
-	// 	var printAnswers = function() {
-	// 	questionBank.forEach(function(question) {
-	// 	var answerOption = $("<label><input type='radio' name='answer' value=" + question.answers + " /> " + question.answers + "</label><br>");
-	//     $("#quiz").append(answerOption);
-	//     console.log(questionBank);
-	// 	});
-	// };
-	printAnswers();
-	checkAnswer();
-	});
-};
-
-var checkAnswer = function(question) {
-	// newQuestion.answers.toString();
-	$('#check').click(function(){
-    // console.log( $("input[type='radio']:checked").val() );
-    console.log(newQuestion.correct);
-    
-    if ($('input[type="radio"]:checked').val() == newQuestion.correct) {
-		teamScore++;
-		console.log("Hi");
-		console.log(teamScore);
-		// // console.log(teamScore);
-  //   } // else if ($('input[type="radio"]checked') !== triviaObject.correct) {
-    // 	console.log("You are incorrect.");
     }
+
+    function printQuestion() {
+    	currentQuestion = questionBank[questionCount-1];
+        console.log("You're on question " + questionCount + ".");
+    	quiz = $('<div id="quiz"><p>' + currentQuestion.question + '</p></div><br>');
+        $('#container').append(quiz);
+
+        // answers = $( '<span>' + currentQuestion.question + '</span>' )
+        // $('#container').append(answers);
+
+        // If you can, randomize the answers[] array. Does array.randomize() exist?
+        // If you can't, you'll need to use something other than a forEach loop to display the answers 
+
+        currentQuestion.answers.forEach(function(answer) {
+            answer = $('<label><input type="radio" name="answer" value="' + answer + '" /> ' + answer + '</label><br>');
+            quiz.append(answer);
+
+        });
+        checkAnswer();
+    }
+
+    function checkAnswer(question) {
+
+        $('body').on('click', '#check', function(){
+            console.log(currentQuestion);
+
+            if ($('input[type="radio"]:checked').val() == currentQuestion.correct) {
+                teamScore++;
+                console.log("Correct!");
+                console.log(teamScore);
+            }
+        });
+    }
+
+    $('body').on('click', '#next', function() {
+
+    	// Verified that method is being called
+    	// Verified that question count is being decreased
+    	// Followed the tennis ball to printQuestion();
+        
+        if(questionCount > 0) {
+        	quiz.remove();
+        	questionCount--;
+        	printQuestion();
+        }
+
+            if (questionCount == 0) {
+                console.log("You finished. Your score is " + teamScore + ".");
+            }
+
+        console.log("Next question");
+        console.log(questionCount);
+
+        }
+    );
 });
-
-	// console.log("The correct answer is " + question.correct);
-	// // We are currently getting the value of <input>'s "value" attribute
-	// // We need to get the innerHTML (or html() in jQuery) from the <span> element for the correct answer
-	// console.log("We are selecting " + $('input[type="radio"]:checked').closest('label').text());
-	
-	};
-
-
-	$('#next').click(function () {
-		console.log("Next question");
-		// for (var numberOfQuestions = 0; numberOfQuestions < 10; numberOfQuestions++) {
-	// $('#quiz').toggle();
-		// }
-	});
-
-
-
-printQuestion();
-
-
-
-});
-
