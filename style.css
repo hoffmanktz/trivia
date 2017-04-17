@@ -1,9 +1,32 @@
 body {
-	background-color:gray;
+	background-color: #42d1f4;
 	font-family:Arial, Helvetica, sans-serif;  	
 }
 
+#container {
+    width:50%;
+    margin:auto;
+    padding: 0 25px 40px 10px;
+    background-color: white;
+    border:2px solid #e01818;
+    border-radius:2px;
+    color: black;
+    font-weight: lighter;
+    box-shadow: 5px 5px 5px #888;
+}
 
+button {
+    position: relative;
+    float:right;
+}
+
+.button {
+	padding-left:5px;
+    padding-right: 5px;
+    position: relative;
+    float:right;
+    margin-left:5px;
+}
 
 
 
