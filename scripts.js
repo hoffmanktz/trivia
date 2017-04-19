@@ -42,15 +42,21 @@ $(document).ready(function() {
 
 // This function shuffles the answer array
 function shuffleAnswers() {
+    var j, x, i;
+    for (i = currentQuestion.answers.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = currentQuestion.answers[i - 1];
+        currentQuestion.answers[i - 1] = currentQuestion.answers[j];
+        currentQuestion.answers[j] = x;
+    }
+    printAnswers();
+}
 
-    for (var i = 0; i <= currentQuestion.answers.length; i++) {
-		var randomNumber = Math.floor(Math.random() * currentQuestion.answers.length);
-		var randAnswer = currentQuestion.answers.splice(randomNumber, 1);
-		answer = $('<label><input type="radio" name="answer" value="' + randAnswer + '" /> ' + randAnswer + '</label><br>');
-		i = 0;
-		quiz.append(answer);
-
-	}
+function printAnswers() {
+	currentQuestion.answers.forEach(function(answer) {
+	radioBtn = $('<label><input type="radio" name="answer" value="' + answer + '" /> ' + answer + '</label><br>');
+	quiz.append(radioBtn);	
+	});
 }
 
 // This prints the main question of the game
