@@ -1,44 +1,117 @@
+/*  ------- Basic styling stuff -------  */
+
 body {
-	background-color: #42d1f4;
-	font-family:Arial, Helvetica, sans-serif;  	
+	background-color: #42d1f4;  	
 }
+
+h1 {
+	font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+	font-family: 'Oswald', sans-serif;
+	font-size:25px;
+	font-weight: 200;
+}
+
+h3 {
+	font-family: 'Oswald', sans-serif;
+	font-size:20px;
+	font-weight: 400;
+}
+
+h4 {
+	font-family: 'Oswald', sans-serif;
+	font-size:18px;
+	font-weight: 200;
+}
+
+
+p {
+	font-family: 'Lato', sans-serif;
+	font-size:20px;
+	font-weight:200;
+}
+
+h1 {
+	text-align: center;	
+	text-transform: uppercase;
+	font-weight: 400;
+}
+
+.score {
+	color:#e01818;
+}
+
+.bold {
+	font-weight: 400 !important;
+}
+
+/*  ------- Banner text for welcome page -------  */
+
+.banner-h1 {
+	font-family: 'Oswald', sans-serif;
+	font-size:84px;
+	text-align: center;	
+	text-transform: uppercase;
+	font-weight: lighter;
+}
+
+
+/*  ------- Containers for welcome and quiz -------  */
 
 #container {
     width:50%;
     margin:auto;
+    margin-top:70px;
     padding: 0 25px 40px 10px;
     background-color: white;
     border:2px solid #e01818;
     border-radius:2px;
     color: black;
-    font-weight: lighter;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
     box-shadow: 5px 5px 5px #888;
 }
 
 #welcome {
 	width:50%;
     margin:auto;
-    padding: 0 25px 40px 10px;
+    margin-top:40px;
+    text-align: center;
+    padding: 10px 25px 40px 25px;
     background-color: white;
     border:2px solid #e01818;
     border-radius:2px;
-    /*color: black;
-    font-weight: lighter;*/
     box-shadow: 5px 5px 5px #888;
 }
+
+/*  ------- Div styling for buttons -------  */
 
 #nav-buttons {
     position: relative;
     float:right;
 }
 
-a {
-	text-transform: uppercase;
-	text-align: center;
-	text-decoration: none;
-	color:#666666;
-	font-size: .8em;
+#welcome-btn {
+    position: relative;
 }
+
+/*  ------- Font styling for quiz -------  */
+
+/*#container .question p {
+	font-family: 'Oswald', sans-serif;
+	font-size:18px;
+	font-weight:200;
+}
+
+.answer {
+	font-family:'Lato', sans-serif;
+	font-weight:300;
+	font-size:16px;
+}
+*/
+/*  ------- Button styling -------  */
 
 .button {
 	margin-left: 5px;
@@ -60,7 +133,7 @@ a {
 	display:inline-block;
 	cursor:pointer;
 	color:#666666;
-	font-family:Arial;
+	font-family:'Lato', sans-serif;
 	font-size:10px;
 	font-weight:bold;
 	padding:6px 15px;
@@ -76,4 +149,46 @@ a {
 	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
 	background-color:#e9e9e9;
+}
+
+.begin-btn {
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff5bb0), color-stop(1, #ef027d));
+	background:-moz-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-webkit-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-o-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-ms-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bb0', endColorstr='#ef027d',GradientType=0);
+	background-color:#ff5bb0;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ee1eb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:'Lato', sans-serif;
+	font-size:23px;
+	font-weight:bold;
+	padding:20px 50px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #c70067;
+}
+
+.begin-btn:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ef027d), color-stop(1, #ff5bb0));
+	background:-moz-linear-gradient(top, #ef027d 5%, #ff5bb0 100%);
+	background:-webkit-linear-gradient(top, #ef027d 5%, #ff5bb0 100%);
+	background:-o-linear-gradient(top, #ef027d 5%, #ff5bb0 100%);
+	background:-ms-linear-gradient(top, #ef027d 5%, #ff5bb0 100%);
+	background:linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ef027d', endColorstr='#ff5bb0',GradientType=0);
+	background-color:#ef027d;
+}
+}
+.begin-btn:active {
+	position:relative;
+	top:1px;
 }
